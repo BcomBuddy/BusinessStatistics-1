@@ -99,12 +99,29 @@ const LandingPage = () => {
               Business Statistics Simulator
             </h1>
             <p className="text-xl md:text-2xl mb-4 text-blue-100 font-medium">
-              Osmania University - Interactive Learning Platform
+              Interactive Learning Platform
             </p>
             <p className="text-lg mb-8 max-w-3xl mx-auto text-blue-50 leading-relaxed">
               Master business statistics through hands-on simulations, real-time calculations, 
               and stunning visualizations. Perfect for B.Com students seeking excellence.
             </p>
+            
+            {/* Video Section */}
+            <div className="mb-8 max-w-4xl mx-auto">
+              <h3 className="text-2xl font-bold mb-4 text-white text-center">
+                🎥 Learn about this simulator
+              </h3>
+              <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl">
+                <iframe
+                  src="https://www.youtube.com/embed/s_qqFpGdC-c?rel=0&modestbranding=1"
+                  title="Business Statistics Simulator Introduction"
+                  className="w-full h-[400px] md:h-[450px] lg:h-[500px]"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Link
@@ -114,22 +131,6 @@ const LandingPage = () => {
                 <Play className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 <span>Start Learning Now</span>
               </Link>
-
-            </div>
-
-            <div className="flex justify-center space-x-8 text-blue-100">
-              <div className="text-center">
-                <div className="text-2xl font-bold">5</div>
-                <div className="text-sm opacity-80">Chapters</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">20+</div>
-                <div className="text-sm opacity-80">Tools</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">∞</div>
-                <div className="text-sm opacity-80">Practice</div>
-              </div>
             </div>
           </div>
         </div>
@@ -228,27 +229,7 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="py-20 bg-gradient-to-r from-gray-900 to-black text-white">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Master Business Statistics?
-          </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of students who have transformed their understanding of statistics through our interactive platform.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              to="/chapter-1"
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-8 py-4 rounded-xl font-bold hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 shadow-xl flex items-center justify-center space-x-2"
-            >
-              <Play className="h-5 w-5" />
-              <span>Begin Your Journey</span>
-            </Link>
 
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

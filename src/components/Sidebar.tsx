@@ -45,12 +45,15 @@ const Sidebar = () => {
         {/* Header with Logo and Toggle Button */}
         <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
           {(!isCollapsed || isMobile) && (
-            <Link to="/" className="flex items-center space-x-2 group">
-              <div className="p-2 bg-blue-600 rounded-lg group-hover:bg-blue-700 transition-colors">
-                <BarChart3 className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-xl font-bold text-gray-900">Stats Simulator</span>
-            </Link>
+                         <Link to="/" className="flex items-center space-x-3 group">
+               <div className="p-2 bg-blue-600 rounded-lg group-hover:bg-blue-700 transition-colors flex-shrink-0">
+                 <BarChart3 className="h-6 w-6 text-white" />
+               </div>
+               <div className="flex flex-col min-w-0">
+                 <span className="text-lg font-bold text-gray-900 leading-tight">Business Statistics 1</span>
+                 <span className="text-xs text-gray-500 leading-tight mt-0.5">2nd Year 3rd Semester</span>
+               </div>
+             </Link>
           )}
           
           <div className="flex items-center space-x-2">
