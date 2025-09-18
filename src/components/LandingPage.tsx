@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, BarChart3, Calculator, TrendingUp, Users, Play, FileText, Award, Clock } from 'lucide-react';
+import { BookOpen, BarChart3, Calculator, TrendingUp, Users, Play, FileText, Award, Clock, Globe } from 'lucide-react';
 
 const LandingPage = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState('english');
+
+  const videoOptions = [
+    { value: 'english', label: 'English', url: 'https://www.youtube.com/embed/Wk4-215Avfc' },
+    { value: 'hindi-urdu', label: 'Hindi/Urdu', url: 'https://www.youtube.com/embed/Q2mO0P5Elx0' },
+    { value: 'telugu', label: 'Telugu', url: 'https://www.youtube.com/embed/DTHpY78P16g' }
+  ];
+
+  const currentVideo = videoOptions.find(option => option.value === selectedLanguage) || videoOptions[0];
+
   const chapters = [
     {
       id: 1,
@@ -111,10 +121,38 @@ const LandingPage = () => {
               <h3 className="text-2xl font-bold mb-4 text-white text-center">
                 🎥 Learn about this simulator
               </h3>
+              
+              {/* Language Selection Dropdown */}
+              <div className="mb-6 flex justify-center">
+                <div className="relative">
+                  <label htmlFor="language-select" className="block text-sm font-medium text-blue-100 mb-2 text-center">
+                    Select Video Language
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="language-select"
+                      value={selectedLanguage}
+                      onChange={(e) => setSelectedLanguage(e.target.value)}
+                      className="appearance-none bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-3 pr-10 text-white font-medium focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent transition-all duration-200 hover:bg-white/20"
+                    >
+                      {videoOptions.map((option) => (
+                        <option key={option.value} value={option.value} className="bg-gray-800 text-white">
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <Globe className="h-5 w-5 text-white/70" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Video Embed */}
               <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl">
                 <iframe
-                  src="https://www.youtube.com/embed/s_qqFpGdC-c?rel=0&modestbranding=1"
-                  title="Business Statistics Simulator Introduction"
+                  src={`${currentVideo.url}?rel=0&modestbranding=1`}
+                  title={`Business Statistics Simulator Introduction - ${currentVideo.label}`}
                   className="w-full h-[400px] md:h-[450px] lg:h-[500px]"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
