@@ -8,13 +8,17 @@ import {
   TrendingUp, 
   ChevronLeft, 
   ChevronRight,
-  X
+  X,
+  LogOut,
+  User
 } from 'lucide-react';
 import { useSidebar } from '../contexts/SidebarContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Sidebar = () => {
   const { isCollapsed, toggleSidebar, isMobile } = useSidebar();
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   const navItems = [
     { path: '/', label: 'Home', icon: Home },
@@ -126,9 +130,50 @@ const Sidebar = () => {
           </div>
         </nav>
 
+        {/* User Info and Sign Out Section */}
+        <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-gray-200 bg-gray-50">
+          {/* User Info */}
+          {user && (!isCollapsed || isMobile) && (
+            <div className="mb-3 p-3 bg-white rounded-xl border border-gray-200">
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <User className="h-4 w-4 text-blue-600" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-gray-900 truncate">
+                    {user.name || 'User'}
+                  </p>
+                  <p className="text-xs text-gray-500 truncate">
+                    {user.email}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Sign Out Button */}
+          <button
+            onClick={logout}
+            className={`w-full flex items-center px-3 py-3 rounded-xl text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 transition-all duration-200 group ${
+              isCollapsed && !isMobile ? 'justify-center' : ''
+            }`}
+            title={isCollapsed && !isMobile ? 'Sign Out' : undefined}
+          >
+            <div className="p-2 rounded-lg bg-red-100 text-red-600 group-hover:bg-red-200 transition-colors">
+              <LogOut className="h-4 w-4" />
+            </div>
+            
+            {(!isCollapsed || isMobile) && (
+              <span className="ml-3 transition-opacity duration-200 font-medium">
+                Sign Out
+              </span>
+            )}
+          </button>
+        </div>
+
         {/* Footer with Collapsed State Info - Only show on desktop when collapsed */}
         {isCollapsed && !isMobile && (
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center">
+          <div className="absolute bottom-20 left-0 right-0 flex justify-center">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center border border-blue-200">
               <BarChart3 className="h-5 w-5 text-blue-600" />
             </div>
