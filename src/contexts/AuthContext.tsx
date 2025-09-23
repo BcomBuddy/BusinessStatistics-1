@@ -113,12 +113,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = async () => {
     try {
       await signOut(auth);
-      // Redirect to login page
-      window.location.href = '/login';
+      // Use window.location.replace to avoid 404 issues
+      window.location.replace('/');
     } catch (error) {
       console.error('Logout error:', error);
       // Force redirect even if logout fails
-      window.location.href = '/login';
+      window.location.replace('/');
     }
   };
 
