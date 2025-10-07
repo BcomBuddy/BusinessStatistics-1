@@ -13,10 +13,11 @@ import Sidebar from './components/Sidebar';
 import MobileHeader from './components/MobileHeader';
 import { SidebarProvider, useSidebar } from './contexts/SidebarContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { SSOProtectedRoute } from './components/SSOProtectedRoute';
 
-// Protected Route Component
+// Protected Route Component - handles both Firebase and SSO authentication
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, isSSOAuthenticated } = useAuth();
   
   if (isLoading) {
     return (
@@ -39,6 +40,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 // Component that uses the sidebar context
 const AppContent = () => {
   const { sidebarWidth } = useSidebar();
+  const { user, isSSOAuthenticated, ssoUser } = useAuth();
   const location = useLocation();
   
   // Check if we're on the login page
@@ -53,6 +55,30 @@ const AppContent = () => {
       {!isLoginPage && (
         <ProtectedRoute>
           <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+            {/* SSO User Info Header */}
+            {isSSOAuthenticated && ssoUser && (
+              <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white p-3 shadow-lg">
+                <div className="max-w-7xl mx-auto flex justify-between items-center">
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-white bg-opacity-20 rounded-full p-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-sm">Welcome, {ssoUser.name}!</h3>
+                      <p className="text-xs opacity-90">{ssoUser.email} • {ssoUser.yearOfStudy}</p>
+                    </div>
+                  </div>
+                  <div className="text-xs opacity-90">
+                    <span className="bg-white bg-opacity-20 px-2 py-1 rounded-full">
+                      {ssoUser.role === 'student' ? 'Student' : ssoUser.role}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+            
             <Sidebar />
             <div className={`${sidebarWidth} transition-all duration-300 ease-in-out`}>
               <MobileHeader />
